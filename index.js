@@ -1,43 +1,22 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-const port = 3000;
+const { connectMongo, sequelize } = require('./config/db');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger/swagger');
 
-// Middleware do parsowania JSON
+const app = express();
 app.use(express.json());
 
-// Endpoint GET
-app.get('/api/users', (req, res) => {
-    res.json([
-        { id: 1, name: 'Tomasz' },
-        { id: 2, name: 'Anna' }
-    ]);
-});
+// Baza danych
+connectMongo().then(() => console.log('MongoDB OK'));
+sequelize.authenticate().then(() => console.log('MySQL OK'));
 
-// Endpoint POST
-app.post('/api/users', (req, res) => {
-    const newUser = req.body;
-    res.status(201).json({
-        message: 'Użytkownik dodany',
-        user: newUser
-    });
-});
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Endpoint PUT
-app.put('/api/users/:id', (req, res) => {
-    const userId = req.params.id;
-    res.json({
-        message: `Użytkownik ${userId} zaktualizowany`,
-        data: req.body
-    });
-});
+// Routing
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
 
-// Endpoint DELETE
-app.delete('/api/users/:id', (req, res) => {
-    const userId = req.params.id;
-    res.json({ message: `Użytkownik ${userId} usunięty` });
-});
-
-// Uruchom serwer
-app.listen(port, () => {
-    console.log(`API działa na http://localhost:${port}`);
-});
+// Start
+app.listen(process.env.PORT, () => console.log(`API działa na porcie ${process.env.PORT}`));
