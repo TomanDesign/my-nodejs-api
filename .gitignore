@@ -1,0 +1,52 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment files
+.env
+.env.*
+
+# Debug output
+debug.log
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache
+.npm/
+
+# Jest test coverage
+coverage/
+
+# VSCode settings
+.vscode/
+
+# Temporary folders
+tmp/
+temp/
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Sequelize config if using CLI (uncomment if used)
+# config/config.json
+
+# MongoDB dump files
+dump/
+
+# Swagger generated files (if any)
+swagger.json
+
+# IDE files
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
