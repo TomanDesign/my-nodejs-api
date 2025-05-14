@@ -49,7 +49,7 @@ my-api
 ### 1️⃣ Clone repository
 
 ```bash
-git clone https://github.com/yourname/my-nodejs-api.git
+git clone https://github.com/TomanDesign/my-nodejs-api.git
 cd my-nodejs-api
 ```
 
